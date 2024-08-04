@@ -1,0 +1,13 @@
+.navbar{
+    background-color: white;
+    
+}
+.cajaSubMenu{
+    font-size: medium;
+
+}
+.nosotros{
+    text-decoration: none;
+    color: rgba(var(--bs-emphasis-color-rgb), 0.65)
+    
+}

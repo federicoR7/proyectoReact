@@ -1,0 +1,29 @@
+
+.containerTablaForm{
+    display: grid;
+    justify-content: end;
+}
+.fila{
+    border: rgba(185, 185, 185, 0.726) solid 1px;
+    border-left: none;
+    border-right: none;
+    
+
+}
+.container{
+    background-color: rgb(233, 223, 225);
+    
+}
+.containerTabla{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.tabla{
+    width: 100%;
+}
+
+
+

@@ -1,0 +1,41 @@
+.cajaAcordeon{
+    width: 50%;
+    background-color: white;   
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: large;
+}
+
+.accordion{
+    width: 95%;
+    
+    
+
+}
+.accordion-button{
+    background: linear-gradient(90deg,rgb(233, 223, 225)60%, white);
+    font-size: large;
+    
+
+}
+.botonAcordeon{
+    margin-bottom: 1.5rem;
+}
+.contenedorCartas{
+    display: flex;
+    justify-content: space-around;
+  
+}
+.tituloBoton{
+    font-size: large;
+}
+.cajaTitulo{
+    width: 95%;
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between
+
+
+}

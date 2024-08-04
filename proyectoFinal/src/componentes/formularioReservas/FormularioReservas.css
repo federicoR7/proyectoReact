@@ -1,0 +1,24 @@
+
+.formulario{
+    font-size: large;
+    background-color: rgb(233, 223, 225);
+     width: 50%;   
+}
+.cajaAfuera{
+    background-color: white;
+    
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+.calendario{
+    display: grid;
+}
+#fecha{
+    background-color: #6c757d;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 3px;
+    
+}

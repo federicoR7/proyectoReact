@@ -1,0 +1,16 @@
+.main{
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 2.5rem;
+  font-size: large;
+  
+
+}
+.body{
+  background-color: rgb(233, 223, 225);
+  min-height: 100vh;
+  font-size: large;
+  
+}
+
+
