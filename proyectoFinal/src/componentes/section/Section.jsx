@@ -13,17 +13,50 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useServicio } from '../../contexto/ServicioContext'
+
 
 
 const ServicioSelector = () => {
     const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
-    
+    const location = useLocation();
     //funcion para el contador de servicios
     const [count, setCount] = useState(0)
     const { servicioSeleccionado, acordeonKey } = useServicio();
     const [activeKey, setActiveKey] = useState('');
+
+
+
+
+
+    useEffect(() => {
+        // Escuchar el evento de cambio de hash en la URL
+        const handleHashChange = () => {
+          const hash = window.location.hash;
+          if (hash) {
+            const element = document.getElementById(hash.substring(1));
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+              element.open = true;  // Abre la sección correspondiente del acordeón
+            }
+          }
+        };
+    
+        // Ejecutar la función cuando se monta el componente
+        handleHashChange();
+    
+        // Añadir el listener del evento
+        window.addEventListener('hashchange', handleHashChange);
+    
+        // Limpiar el listener al desmontar el componente
+        return () => {
+          window.removeEventListener('hashchange', handleHashChange);
+        };
+      }, []);
+
+
+
 
        
 
@@ -77,6 +110,9 @@ const ServicioSelector = () => {
 
 
 
+
+
+
     return (
 
         <section className="cajaAcordeon rounded">
@@ -124,10 +160,10 @@ const ServicioSelector = () => {
             <Accordion activeKey={activeKey} onSelect={(key) => setActiveKey(key)} >
 
 
-                <Accordion.Item eventKey="0" className="botonAcordeon" >
+                <Accordion.Item eventKey="0"className="botonAcordeon" >
                     <Accordion.Header id="Servicio 1">Peluquería</Accordion.Header>
 
-                    <Accordion.Body className="contenedorCartas" >
+                    <Accordion.Body  id="service-1" className="contenedorCartas" >
                         <Card style={{ width: '30%' }}>
                             <img src={Peluqueria} alt="" />
                             <Card.Body>

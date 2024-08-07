@@ -24,8 +24,8 @@ function App() {
         <GoogleMaps />
                 
           <Routes>
-             
-            <Route path="/" element={<ServicioSelector />} />
+          <Route path="/servicio" element={<ServicioSelector />} />
+           {/**<Route path="/" element={<ServicioSelector />} />*/}
             <Route path='/Reservas' element={<Formulario />} />
             <Route path='/Nosotros' element={<Nosotros />} />
             <Route path='/Contacto' element={<Contacto />} />

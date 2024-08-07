@@ -32,7 +32,7 @@ const Header=() =>{
                 
             <NavDropdown title="Servicios" id="navbarScrollingDropdown">
               <div className='cajaSubMenu'>
-                <NavDropdown.Item href="#action1" onClick={() => seleccionarServicio('Servicio 1', '0')}>Peluquería</NavDropdown.Item>
+                <NavDropdown.Item href="#service-1" onClick={() => seleccionarServicio('Servicio 1', '0')}>Peluquería</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action2">Manicuría</NavDropdown.Item>
                 <NavDropdown.Divider />
