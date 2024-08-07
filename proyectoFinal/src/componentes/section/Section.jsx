@@ -14,10 +14,24 @@ import React, { useState, useEffect } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
+import { useServicio } from '../../contexto/ServicioContext'
 
 
 const ServicioSelector = () => {
     const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
+    
+    //funcion para el contador de servicios
+    const [count, setCount] = useState(0)
+    const { servicioSeleccionado, acordeonKey } = useServicio();
+    const [activeKey, setActiveKey] = useState('');
+
+       
+
+        useEffect(() => {
+            if (servicioSeleccionado) {
+              document.getElementById(servicioSeleccionado).scrollIntoView({ behavior: 'smooth' });
+            }
+          }, [servicioSeleccionado]);
 
 
     // Carga la lista desde localstorage cuando el componente se monta
@@ -37,16 +51,8 @@ const ServicioSelector = () => {
     //función para agregar servicios 
     const agregarServicio = (servicio) => {
         setServiciosSeleccionados([...serviciosSeleccionados, servicio]);
+        setCount(count + 1);
     };
-
-    //funcion para el contador de servicios
-    const [count, setCount] = useState(0)
-
-
-
-
-
-
 
 
     //funcion para eliminar servicios
@@ -54,10 +60,10 @@ const ServicioSelector = () => {
         setServiciosSeleccionados(serviciosSeleccionados.filter(servicio => servicio.id !== id));
     };
 
-    //funcion por si no se selleciona nada, que salte un alert y no se pueda agendar 
+    //funcion por si no se selecciona nada, que salte un alert y no se pueda agendar 
     const handleAlert = () => {
         if (serviciosSeleccionados.length === 0) {
-            alert('Por favor selecciona al menos un servicio.');
+            alert('Por favor selecciona un servicio.');
         }
     };
 
@@ -115,13 +121,13 @@ const ServicioSelector = () => {
 
 
 
-            <Accordion defaultActiveKey="" >
+            <Accordion activeKey={activeKey} onSelect={(key) => setActiveKey(key)} >
 
 
-                <Accordion.Item eventKey="0" className="botonAcordeon">
-                    <Accordion.Header>Peluquería</Accordion.Header>
+                <Accordion.Item eventKey="0" className="botonAcordeon" >
+                    <Accordion.Header id="Servicio 1">Peluquería</Accordion.Header>
 
-                    <Accordion.Body className="contenedorCartas">
+                    <Accordion.Body className="contenedorCartas" >
                         <Card style={{ width: '30%' }}>
                             <img src={Peluqueria} alt="" />
                             <Card.Body>

@@ -7,14 +7,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "./Header.css"
 import Logo from '../../assets/img/logoVN.jpg'
-import LogoHome from '../../App'
 import { Link } from 'react-router-dom';
+import { useServicio } from '../../contexto/ServicioContext';  
 
 
 
 
 
-function Header() {
+const Header=() =>{
+
+  const { seleccionarServicio } = useServicio()
+
   return (
     <Navbar expand="lg" className="navbar">
       <Container fluid>
@@ -29,7 +32,7 @@ function Header() {
                 
             <NavDropdown title="Servicios" id="navbarScrollingDropdown">
               <div className='cajaSubMenu'>
-                <NavDropdown.Item href="#action1">Peluquería</NavDropdown.Item>
+                <NavDropdown.Item href="#action1" onClick={() => seleccionarServicio('Servicio 1', '0')}>Peluquería</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action2">Manicuría</NavDropdown.Item>
                 <NavDropdown.Divider />
