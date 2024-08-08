@@ -16,6 +16,8 @@ import { useServicio } from '../../contexto/ServicioContext';
 
 const Header=() =>{
 
+
+
   const { seleccionarServicio } = useServicio()
 
   return (
@@ -32,17 +34,17 @@ const Header=() =>{
                 
             <NavDropdown title="Servicios" id="navbarScrollingDropdown">
               <div className='cajaSubMenu'>
-                <NavDropdown.Item href="#service-1" onClick={() => seleccionarServicio('Servicio 1', '0')}>Peluquería</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/servicio/peluqueria" onClick={() => seleccionarServicio('peluqueria')}>Peluquería</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action2">Manicuría</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/servicio/manicuria" onClick={() => seleccionarServicio('manicuria')}>Manicuría</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action3">Esculpidas</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/servicio/esculpidas" onClick={() => seleccionarServicio('esculpidas')}>Esculpidas</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action4">Pies</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/servicio/pies" onClick={() => seleccionarServicio('pies')}>Pies</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">Tratamientos Faciales</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/servicio/TratamientosFaciales" onClick={() => seleccionarServicio('tratamientosFaciales')}>Tratamientos Faciales</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action6">Depilación</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/servicio/depilacion" onClick={() => seleccionarServicio('depilacion')}>Depilación</NavDropdown.Item>
               </div>
             </NavDropdown>
             

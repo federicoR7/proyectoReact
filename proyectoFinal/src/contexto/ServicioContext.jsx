@@ -12,9 +12,9 @@ export const ServicioProvider = ({ children }) => {
   const [acordeonKey, setAcordeonKey] = useState('');
 
 
-  const seleccionarServicio = (servicioId, acordeonKey) => {
-    setServicioSeleccionado(servicioId);
-    setAcordeonKey(acordeonKey);
+  const seleccionarServicio = (servicio, key) => {
+    setServicioSeleccionado(servicio);
+    setAcordeonKey(key);
   };
 
   return (

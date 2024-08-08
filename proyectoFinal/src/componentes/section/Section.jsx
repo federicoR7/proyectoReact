@@ -15,7 +15,7 @@ import Badge from 'react-bootstrap/Badge';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link, useLocation } from 'react-router-dom';
 import { useServicio } from '../../contexto/ServicioContext'
-
+import { useParams } from 'react-router-dom';
 
 
 const ServicioSelector = () => {
@@ -24,13 +24,52 @@ const ServicioSelector = () => {
     //funcion para el contador de servicios
     const [count, setCount] = useState(0)
     const { servicioSeleccionado, acordeonKey } = useServicio();
-    const [activeKey, setActiveKey] = useState('');
+    const [activeKey, setActiveKey] = useState(null);
 
 
 
 
 
-    useEffect(() => {
+
+    const { tipo } = useParams();
+
+  const openServiceSection = (tipo) => {
+    
+    switch (tipo) {
+      case 'peluqueria':
+        setActiveKey('0');
+        break;
+      case 'manicuria':
+        setActiveKey('1');
+        break;
+      case 'esculpidas':
+        setActiveKey('2');
+        break;
+        case 'pies':
+            setActiveKey('3');
+            break;
+            case 'tratamientosFaciales':
+                setActiveKey('4');
+                break;
+                case 'depilacion':
+                    setActiveKey('5');
+                    break;
+      default:
+        setActiveKey(null);
+    }
+
+
+  };
+
+  useEffect(() => {
+    openServiceSection(tipo);
+  }, [tipo]);
+
+
+
+
+
+   {/**  useEffect(() => {
         // Escuchar el evento de cambio de hash en la URL
         const handleHashChange = () => {
           const hash = window.location.hash;
@@ -64,7 +103,7 @@ const ServicioSelector = () => {
             if (servicioSeleccionado) {
               document.getElementById(servicioSeleccionado).scrollIntoView({ behavior: 'smooth' });
             }
-          }, [servicioSeleccionado]);
+          }, [servicioSeleccionado]);*/}
 
 
     // Carga la lista desde localstorage cuando el componente se monta
@@ -161,9 +200,9 @@ const ServicioSelector = () => {
 
 
                 <Accordion.Item eventKey="0"className="botonAcordeon" >
-                    <Accordion.Header id="Servicio 1">Peluquería</Accordion.Header>
+                    <Accordion.Header id="peluqueria">Peluquería</Accordion.Header>
 
-                    <Accordion.Body  id="service-1" className="contenedorCartas" >
+                    <Accordion.Body   className="contenedorCartas" >
                         <Card style={{ width: '30%' }}>
                             <img src={Peluqueria} alt="" />
                             <Card.Body>
@@ -197,7 +236,7 @@ const ServicioSelector = () => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1" className="botonAcordeon">
-                    <Accordion.Header>Manicuría</Accordion.Header>
+                    <Accordion.Header id="manicuria">Manicuría</Accordion.Header>
                     <Accordion.Body className="contenedorCartas">
                         <Card style={{ width: '30%' }}>
                             <img src={Manicuria} alt="" />
@@ -233,7 +272,7 @@ const ServicioSelector = () => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2" className="botonAcordeon">
-                    <Accordion.Header>Esculpidas</Accordion.Header>
+                    <Accordion.Header id="esculpidas">Esculpidas</Accordion.Header>
                     <Accordion.Body className="contenedorCartas">
                         <Card style={{ width: '30%' }}>
                             <img src={Esculpidas} alt="" />
@@ -268,7 +307,7 @@ const ServicioSelector = () => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="3" className="botonAcordeon">
-                    <Accordion.Header>Pies</Accordion.Header>
+                    <Accordion.Header id="pies">Pies</Accordion.Header>
                     <Accordion.Body className="contenedorCartas">
                         <Card style={{ width: '30%' }}>
                             <img src={Pies} alt="" />
@@ -303,7 +342,7 @@ const ServicioSelector = () => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="4" className="botonAcordeon">
-                    <Accordion.Header>Tratamientos faciales</Accordion.Header>
+                    <Accordion.Header id="tratamientosFaciales">Tratamientos faciales</Accordion.Header>
                     <Accordion.Body className="contenedorCartas">
                         <Card style={{ width: '30%' }}>
                             <img src={TratamientosFaciales} alt="" />
@@ -338,7 +377,7 @@ const ServicioSelector = () => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="5" className="botonAcordeon">
-                    <Accordion.Header>Depilación</Accordion.Header>
+                    <Accordion.Header id="depilacion">Depilación</Accordion.Header>
                     <Accordion.Body className="contenedorCartas">
                         <Card style={{ width: '30%' }}>
                             <img src={Depilacion} alt="" />
