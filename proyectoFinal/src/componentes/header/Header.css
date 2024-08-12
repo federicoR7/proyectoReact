@@ -11,3 +11,7 @@
     color: rgba(var(--bs-emphasis-color-rgb), 0.65)
     
 }
+
+.opciones{
+    margin-left: 3rem;
+}

@@ -19,7 +19,14 @@
 .wppImg{
     width: 17%;
 }
-.nav-link:hover{
+a:hover{
     text-decoration: underline;
 
 }
+
+a{
+    text-decoration: none;
+    color: rgba(var(--bs-emphasis-color-rgb), 0.65)
+    
+}
+

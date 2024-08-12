@@ -12,15 +12,14 @@
     background-color: rgb(233, 223, 225);
     width: 97.5%;
     height: 95%;
-
-
-
-
+    display: grid;
+    align-items: center;
+    align-content: center;
 }
 
 .cajaLogosCont {
     display: flex;
-    margin-top: 3rem;
+   
 }
 
 .whatsappImgCont {

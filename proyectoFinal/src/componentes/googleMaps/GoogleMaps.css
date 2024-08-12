@@ -1,22 +1,21 @@
 .cajaPadreMaps {
-    width: 25%;
+    width: 50%;
     display: grid;
     justify-content: center;
+    height: 30%;
     
  
 }
 
-.contenedorMapa {
-    width: 95%;
-   
-}
+
 
 .contenedorSection {
-    width: 100%;
-    height: 100%;
-    
+width: 100%;
     background-color: white;
 
+}
+.mapaGoogleIndex{
+    width: 100%;
 }
 
 

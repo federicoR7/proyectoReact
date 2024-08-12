@@ -17,29 +17,33 @@ import ServicioSelector from './componentes/section/Section';
 function App() {
   return (
     <Router>
-      <div className='body'>
+      <section className='body'>
         <Header />
         <Carrousel /> 
         <main className='main'  >
-        <GoogleMaps />
+        
                 
           <Routes>
           
           <Route path="/servicio/:tipo" element={<ServicioSelector />} />
           
-           <Route path="/" element={<ServicioSelector />} />
+           <Route  path="/" element={<ServicioSelector />} />
             <Route path='/Reservas' element={<Formulario />} />
             <Route path='/Nosotros' element={<Nosotros />} />
             <Route path='/Contacto' element={<Contacto />} />
+            
+            
 
 
             
-          </Routes>         
-        
+          </Routes>   
+          <div className='cajaHorarioMapa'>     
+        <GoogleMaps />
         <Horarios />
+        </div> 
         </main>
         <Footer />
-      </div>
+      </section>
     </Router>
   )
 }

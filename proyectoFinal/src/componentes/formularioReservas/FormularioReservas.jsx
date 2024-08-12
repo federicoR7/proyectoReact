@@ -7,24 +7,61 @@ import Row from 'react-bootstrap/Row';
 import "./FormularioReservas.css"
 
 import Dropdown from 'react-bootstrap/Dropdown';
+import Alert from 'react-bootstrap/Alert';
+import { useNavigate } from 'react-router-dom'; // Para redirigir al inicio
 
 const FormularioServicios = () => {
   const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
-
+  const [horarioSeleccionado, setHorarioSeleccionado] = useState('Elegir un horario');
   const [validated, setValidated] = useState(false);
+  const [mensaje, setMensaje] = useState('');
+  const [reservaHecha, setReservaHecha] = useState(false); // Estado para manejar si la reserva fue realizada
+  const navigate = useNavigate(); // Hook para redirigir a otra página
+  const [horarioInvalido, setHorarioInvalido] = useState(false); // Estado de validación del horario
+
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    dia: '',
+    horario: '',
+    email: '',
+    servicios: [],
+  });
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
+    if (form.checkValidity() === false || horarioInvalido) {
       event.stopPropagation();
+    } else {
+      setMensaje('El turno se agendó correctamente. Gracias por confiar en nosotros!');
+      setReservaHecha(true); // Cambia el estado para deshabilitar el botón y mostrar el de volver
+      console.log('Formulario enviado:', formData);
     }
 
     setValidated(true);
+
+    if (horarioSeleccionado === 'Elegir un horario') {
+      setHorarioInvalido(true); // Marca el horario como inválido si no se selecciono
+    } else {
+      setHorarioInvalido(false); // Marca el horario como válido si se selecciono
+    }
   };
 
+  const handleSelect = (eventKey) => {
+    setHorarioSeleccionado(eventKey);
+    setFormData({ ...formData, horario: eventKey });
+    setHorarioInvalido(false);
+  };
 
-  // Carga la lista desde localstorage cuando el componente se monta
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   useEffect(() => {
     const serviciosGuardados = localStorage.getItem('serviciosSeleccionados');
     if (serviciosGuardados) {
@@ -32,106 +69,155 @@ const FormularioServicios = () => {
     }
   }, []);
 
+  // Asegúrate de que los servicios seleccionados se guarden en formData
+  useEffect(() => {
+    setFormData({ ...formData, servicios: serviciosSeleccionados });
+  }, [serviciosSeleccionados]);
+
+  const handleVolverInicio = () => {
+    navigate('/'); // Redirige al inicio
+  };
+
+
   return (
+    <section className='formulario'>     
 
-    <section className='formulario'>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Row className="mb-3">
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label >Nombre</Form.Label>
+      
+      <Form noValidate validated={validated} onSubmit={handleSubmit} className='form'>
+        <h3 className='tituloFormulario'>Estas a un paso de reservar con nosotros!</h3>
 
-            <Form.Control
-              required
-              type="text"
-              placeholder="ingrese su nombre"
-              defaultValue=""
-              size='lg'
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Apellido</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="ingrese su apellido"
-              defaultValue=""
-              size='lg'
-            />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-            <Form.Label>Email</Form.Label>
-            <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+        <Row className="mb-3 lineaDatos1">
+          <div className='cajaInputs'>
+            <Form.Group as={Col}  controlId="formNombre">
+              <Form.Label>Nombre</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="ingrese su email"
-                aria-describedby="inputGroupPrepend"
                 required
+                type="text"
+                placeholder="Ingrese su nombre"
                 size='lg'
+                value={formData.nombre}
+                onChange={handleInputChange}
+                name="nombre"
               />
-              <Form.Control.Feedback type="invalid">
-                por favor escribí un emal.
-              </Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
+              <Form.Control.Feedback>¡Se ve bien!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col}  controlId="formApellido">
+              <Form.Label>Apellido</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="Ingrese su apellido"
+                size='lg'
+                value={formData.apellido}
+                onChange={handleInputChange}
+                name="apellido"
+              />
+              <Form.Control.Feedback>¡Se ve bien!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col}  controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <InputGroup hasValidation>
+                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese su email"
+                  required
+                  size='lg'
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  name="email"
+                />
+                <Form.Control.Feedback>¡Se ve bien!</Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+          </div>
+          <Row className="mb-3 cajaHorarios">
+
+            <Form.Group as={Col} md="3" controlId="fomrDia" className='calendario'>
+              <Form.Label>Día</Form.Label>
+              <Form.Control
+                required
+                type="date"
+                size='lg'
+                value={formData.dia}
+                onChange={handleInputChange}
+                name="dia"
+                className='dia'
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} md="3" controlId="formHorario" className='calendario'>
+              <Form.Label>Horario</Form.Label>
+              <Dropdown onSelect={handleSelect} required>
+                <Dropdown.Toggle variant={horarioInvalido ? 'danger' : 'secondary'} id="dropdown-basic" size='lg'>
+                  {horarioSeleccionado}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item className='horas' eventKey="9:30hs">9:30hs</Dropdown.Item>
+                  <Dropdown.Item className='horas' eventKey="10:30hs">10:30hs</Dropdown.Item>
+                  <Dropdown.Item className='horas' eventKey="12hs">12hs</Dropdown.Item>
+                  <Dropdown.Item className='horas' eventKey="14hs">14hs</Dropdown.Item>
+                  <Dropdown.Item className='horas' eventKey="14:30hs">14:30hs</Dropdown.Item>
+                  <Dropdown.Item className='horas' eventKey="15:30hs">15:30hs</Dropdown.Item>
+                  <Dropdown.Item className='horas' eventKey="16:30hs">16:30hs</Dropdown.Item>
+                  <Dropdown.Item className='horas' eventKey="18hs">18hs</Dropdown.Item>
+                  <Dropdown.Item className='horas' eventKey="18:30hs">18:30hs</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+
+            </Form.Group>
+          </Row>
+
         </Row>
-        <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="validationCustom03">
-            <Form.Label>Servicios seleccionados</Form.Label>
+
+
+
+
+
+        <Form.Group as={Col} md="6" controlId="formServicios" required
+          size='lg'
+          value={formData.servicios}
+          onChange={handleInputChange}
+          name="servicios"
+          className='cajaInferior'
+        >
+          <div className='subCajaInferior'>
+            <Form.Label>Servicios seleccionados:</Form.Label>
             <ul>
               {serviciosSeleccionados.length === 0 ? (
                 <li>No hay servicios seleccionados</li>
               ) : (
                 serviciosSeleccionados.map((servicio) => (
                   <li key={servicio.id}>{servicio.nombre}</li>
+                  
                 ))
               )}
             </ul>
-
-
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom04" className='calendario'>
-            <Form.Label>Día</Form.Label>
-            <input type="date" id="fecha" name="fecha" required />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid state.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>Horario</Form.Label>
-
-
-            <Dropdown>
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic" size='lg'>
-                Elegir un horario
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">9:30hs</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">10:30hs</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">12hs</Dropdown.Item>
-                <Dropdown.Item href="#/action-4">14hs</Dropdown.Item>
-                <Dropdown.Item href="#/action-5">14:30hs</Dropdown.Item>
-                <Dropdown.Item href="#/action-6">15:30hs</Dropdown.Item>
-                <Dropdown.Item href="#/action-7">16:30hs</Dropdown.Item>
-                <Dropdown.Item href="#/action-8">18hs</Dropdown.Item>
-                <Dropdown.Item href="#/action-9">18:30hs</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-
-          </Form.Group>
-        </Row>
-        <Form.Group className="mb-3">
+          </div>
 
         </Form.Group>
-        <Button variant="secondary" size="lg">Reservar!</Button>
+                  <div className='cajaBotonAgendar'>
+            {/**  <Button variant="secondary" size="lg" type="submit">Reservar!</Button>*/}
+            {!reservaHecha ? (
+              <Button className='botonAgendar' variant="secondary" size="lg" type="submit" disabled={reservaHecha}>
+                Reservar!
+              </Button>
+            ) : (
+              <Button className='botonAgendar' variant="secondary" size="lg" onClick={handleVolverInicio}>
+                Volver al Inicio
+              </Button>
+            )}
+          </div>
+
+     {mensaje && (
+        <Alert variant="success" className="mt-4">
+          {mensaje}
+        </Alert>
+      )}
       </Form>
 
     </section>
-
   );
-}
+};
 
 export default FormularioServicios;

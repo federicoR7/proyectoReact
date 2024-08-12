@@ -49,21 +49,12 @@ const Header=() =>{
             </NavDropdown>
             
 
-            <Nav.Link href="#action1" ><Link to="/Nosotros" className='nosotros'> Nosotros</Link></Nav.Link>
+            <Nav.Link className='opciones'><Link to="/Nosotros" className='nosotros'> Nosotros</Link></Nav.Link>
 
-            <Nav.Link href="#" ><Link to="/Contacto" className='nosotros'> Contacto</Link> </Nav.Link>
+            <Nav.Link className='opciones' ><Link to="/Contacto" className='nosotros'> Contacto</Link> </Nav.Link>
           </Nav>
 
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              size="lg"
-              placeholder="Servicios"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-secondary">Buscar</Button>
-          </Form>
+
         </Navbar.Collapse>
       </Container>
     </Navbar>
