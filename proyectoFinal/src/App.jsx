@@ -23,7 +23,7 @@ function App() {
         <main className='main'  >
         
                 
-          <Routes>
+          <Routes basename="/proyectoReact">
           
           <Route path="/servicio/:tipo" element={<ServicioSelector />} />
           
@@ -31,11 +31,7 @@ function App() {
             <Route path='/Reservas' element={<Formulario />} />
             <Route path='/Nosotros' element={<Nosotros />} />
             <Route path='/Contacto' element={<Contacto />} />
-            
-            
 
-
-            
           </Routes>   
           <div className='cajaHorarioMapa'>     
         <GoogleMaps />
